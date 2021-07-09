@@ -1,25 +1,36 @@
+// const json = {
+//     "name": 1,
+//     "items": [{
+//         "name": 2,
+//         "items": [{ "name": 3, "items": [{"name": 9}]}, { "name": 4, "items": [{"name": 7}, {"name": 8}] }]
+//     }, {
+//         "name": 5,
+//         "items": [{ "name": 6, "items": [{"name": 10}] }]
+//     }]
+// };
+
 const json = {
     "name": 1,
     "items": [{
         "name": 2,
-        "items": [{ "name": 3, "items": [{"name": 9}]}, { "name": 4, "items": [{"name": 7}, {"name": 8}] }]
+        "items": [{ "name": 3 }, { "name": 4 }]
     }, {
         "name": 5,
         "items": [{ "name": 6 }]
     }]
-};
+}
 
 const start = '└──';
-const sym2 = '│   ';
 
 const printName = (val, tabCount) => {
     let tabStr;
+    const separator = '    ';
     if (tabCount === 0) {
         tabStr = '';
     } else if (tabCount === 1) {
         tabStr = start + ' ';
     } else {
-        tabStr = sym2.repeat(tabCount - 1) + start + ' ';
+        tabStr = separator.repeat(tabCount - 1) + start + ' ';
     }
 
     console.log(tabStr + val);
