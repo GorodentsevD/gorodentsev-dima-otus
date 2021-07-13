@@ -1,3 +1,6 @@
+const childLine = '└──';
+const separator = '|   ';
+
 const json = {
     "name": 1,
     "items": [{
@@ -9,11 +12,9 @@ const json = {
     }]
 }
 
-const childLine = '└──';
 
 const printName = (val, tabCount) => {
     let tabStr;
-    const separator = '|   ';
     if (tabCount === 0) {
         tabStr = '';
     } else if (tabCount === 1) {
