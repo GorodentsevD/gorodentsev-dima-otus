@@ -1,3 +1,5 @@
+'use strict';
+
 const tree = require('./tree');
 
 const json = {
@@ -12,4 +14,3 @@ const json = {
 }
 
 tree(json);
-tree({});
