@@ -1,11 +1,11 @@
 'use strict';
 const { MongoClient } = require("mongodb");
 
-const client = new MongoClient('mongodb://127.0.0.1:27017/');
-
 module.exports = {
-    async run() {
+    async run(mongoUrl) {
         try {
+            const client = new MongoClient(mongoUrl);
+
             // Connect the client to the server
             await client.connect();
             // Establish and verify connection

@@ -2,6 +2,7 @@
 
 const EXPRESS_PORT = 8081;
 const WEBSOCKET_PORT = 8082;
+const MONGO_URL = 'mongodb://127.0.0.1:27017/';
 
 const fs = require('fs');
 const path = require('path');
@@ -13,7 +14,7 @@ let mongoClient;
 
 async function start() {
     // Create mongo connection
-    mongoClient = await require('./servers/mongo').run();
+    mongoClient = await require('./db/mongo').run(MONGO_URL);
 
     // Start Express server
     const app = require('./servers/httpServer');
@@ -22,7 +23,7 @@ async function start() {
     // Start Websocket server
     require('./servers/wsServer')(WEBSOCKET_PORT, mongoClient);
 
-    server.listen(EXPRESS_PORT);
+    server.listen(EXPRESS_PORT, () => console.log(`Server started on ${EXPRESS_PORT} port`));
 }
 
 start().catch(e => console.log('Error:', e));
