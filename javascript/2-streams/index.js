@@ -1,32 +1,49 @@
+const splitFile = require('./splitFile');
+const generateFile = require('./generateFile');
 const fs = require('fs');
-const {Readable} = require('stream');
 
-const fileName = 'file.txt'; // TODO: get fileName from node params
-const maxFileSize = 20 * 1024 * 1024;
+(async () => {
+    const mainFileName = 'file.txt';
+    const resultFileName = 'result.txt';
 
-/**
- * Split large file to multiple files by size 
- * TODO: @return ReadStream[]
- */
-const splitFile = () => {
-    const {size: fileBytes} = fs.statSync(fileName);
-    
-    if (fileBytes / (1024 * 1024) < 20) return fs.createReadStream('fileName');
+    if (!fs.existsSync(mainFileName)) generateFile(mainFileName);
+    const subFileIterators = await splitFile(mainFileName);
 
+    const resultFileWriteStream = fs.createWriteStream(resultFileName);
 
-    fs.mkdirSync('tmp');
-    for (let start = 0, i = 0; start < fileBytes; start += maxFileSize + 1, i++) {
-        const readStream = fs.createReadStream('file.txt', {
-            encoding: null,
-            start: start,
-            end: start + maxFileSize
-        });
-        
-        fs.writeFileSync(`tmp/file${i}.txt`, '');
+    console.log('Sort started...');
 
-        readStream.pipe(fs.createWriteStream(`tmp/file${i}.txt`));
+    // Init numbers collection by first numbers of sub-files
+    const numbers = {};
+    for (const [key, iterator] of subFileIterators.entries()) {
+        const line = await iterator.next();
+        if (!line.done) numbers[key] = parseInt(line.value);
     }
-};
 
+    while (true) {
+        if (!Object.keys(numbers).length) break;
 
-splitFile();
+        let minVal = numbers[0], minKey = 0;
+        for (let key in numbers) {
+            if (minVal === undefined || numbers[key] < minVal) {
+                minVal = numbers[key];
+                minKey = key;
+            }
+        }
+
+        const nextLine = await subFileIterators[minKey].next();
+        if (nextLine.done) {
+            delete numbers[minKey];
+        } else {
+            numbers[minKey] = parseInt(nextLine.value);
+        }
+
+        resultFileWriteStream.write(`${minVal}\n`);
+    }
+
+    resultFileWriteStream.end('\n');
+
+    console.log(`Sort finished, result in file ${resultFileName}`);
+
+    fs.rmdirSync('tmp', { recursive: true });
+})();
