@@ -5,8 +5,8 @@
     "main": "index.js",
     "scripts": {
       "test": "echo \"Error: no test specified\" && exit 1",
-      "start": "node generateFile && node --max-old-space-size=50 index",
-      "run": "node --max-old-space-size=50 index"
+      "run": "node --max-old-space-size=50 index",
+      "testResult": "node testResult"
     },
     "author": "",
     "license": "ISC"
