@@ -37,7 +37,7 @@ module.exports = async (fileName, maxFileSizeBytes = 5 * 1024 * 1024) => {
 
     const mainFileIterator = rl[Symbol.asyncIterator]()
 
-    if (fs.existsSync('tmp')) fs.rmdirSync('tmp', { recursive: true });
+    if (fs.existsSync('tmp')) fs.rmdirSync('tmp', {recursive: true});
 
     fs.mkdirSync('tmp');
 

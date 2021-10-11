@@ -1,16 +1,16 @@
 {
-    "name": "otus",
-    "version": "1.0.0",
-    "description": "Otus streams homework",
-    "main": "index.js",
-    "scripts": {
-      "test": "echo \"Error: no test specified\" && exit 1",
-      "generateFile": "node generateFile",
-      "run": "node --max-old-space-size=50 index",
-      "start": "npm run-script generateFile && npm run-script run",
-      "testResult": "node testResult"
-    },
-    "author": "",
-    "license": "ISC"
-  }
+  "name": "otus",
+  "version": "1.0.0",
+  "description": "Otus streams homework",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "generateFile": "node generateFile",
+    "run": "node --max-old-space-size=50 index",
+    "start": "npm run-script generateFile && npm run-script run",
+    "testResult": "node testResult"
+  },
+  "author": "",
+  "license": "ISC"
+}
   

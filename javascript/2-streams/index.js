@@ -56,6 +56,6 @@ const write = (writer, data) =>
     }
 
     resultFileWriteStream.end('\n');
-    fs.rmdirSync('tmp', { recursive: true });
+    fs.rmdirSync('tmp', {recursive: true});
     console.log(`Sort finished, tmp files removed, result in file ${resultFileName}.\nUse "npm run-script testResult" for check result`);
 })();
