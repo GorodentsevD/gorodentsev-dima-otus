@@ -1,13 +1,27 @@
 const splitFile = require('./splitFile');
-const generateFile = require('./generateFile');
 const fs = require('fs');
+
+/**
+ * Prevents backpressure when writing to stream
+ * @param {NodeJS.WritableStream} writer
+ * @param {string} data
+ * @return {Promise<void>}
+ */
+const write = (writer, data) =>
+    new Promise((resolve) => !writer.write(data) ? writer.once('drain', resolve) : resolve());
 
 (async () => {
     const mainFileName = 'file.txt';
     const resultFileName = 'result.txt';
 
-    if (!fs.existsSync(mainFileName)) generateFile(mainFileName);
+    if (!fs.existsSync(mainFileName)) {
+        console.log('File file.txt does not exist');
+        return;
+    }
+
+    console.log('File splitting started...');
     const subFileIterators = await splitFile(mainFileName);
+    console.log('File splitting success');
 
     const resultFileWriteStream = fs.createWriteStream(resultFileName);
 
@@ -38,12 +52,10 @@ const fs = require('fs');
             numbers[minKey] = parseInt(nextLine.value);
         }
 
-        resultFileWriteStream.write(`${minVal}\n`);
+        await write(resultFileWriteStream, `${minVal}\n`);
     }
 
     resultFileWriteStream.end('\n');
-
-    console.log(`Sort finished, result in file ${resultFileName}`);
-
     fs.rmdirSync('tmp', { recursive: true });
+    console.log(`Sort finished, tmp files removed, result in file ${resultFileName}.\nUse "npm run-script testResult" for check result`);
 })();

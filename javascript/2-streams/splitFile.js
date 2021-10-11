@@ -29,7 +29,7 @@ const createAndWriteFile = (fileName, data) => {
  * @param {number} maxFileSizeBytes
  * @return Promise<AsyncIterator[]> - array of readline iterators of sub-files
  */
-module.exports = async (fileName, maxFileSizeBytes = 20 * 1024 * 1024) => {
+module.exports = async (fileName, maxFileSizeBytes = 5 * 1024 * 1024) => {
     const rl = readline.createInterface({
         input: fs.createReadStream(fileName),
         crlfDelay: Infinity
@@ -48,6 +48,7 @@ module.exports = async (fileName, maxFileSizeBytes = 20 * 1024 * 1024) => {
         let subFileSizeBytes = 0;
 
         const subFileName = `tmp/file${i}.txt`;
+        console.log(`${subFileName} generating started`);
         while (true) {
             // Cycle of reading numbers from main file
             if (subFileSizeBytes >= maxFileSizeBytes) {
