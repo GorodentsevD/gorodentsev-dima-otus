@@ -2,6 +2,7 @@ const fs = require('fs');
 
 const min = 0;
 const max = 999999999;
+const fileName = 'file.txt';
 
 /**
  * Generate string of numbers
@@ -17,22 +18,20 @@ const generateNum = () => {
     return arr.join('\n');
 };
 
-module.exports = (fileName) => {
-    console.log('Generate file...');
-    fs.writeFileSync(fileName, '');
+console.log('Generate file...');
+fs.writeFileSync(fileName, '');
 
-    console.log('Generating started...');
+console.log('Generating started...');
 
-    while (true) {
-        const {size: fileBytes} = fs.statSync(fileName);
+while (true) {
+    const {size: fileBytes} = fs.statSync(fileName);
 
-        if (fileBytes / (1024 * 1024) >= 100) {
-            // file size more or equal 100 MB, stop execution
-            break;
-        }
-
-        fs.appendFileSync(fileName, generateNum());
+    if (fileBytes / (1024 * 1024) >= 100) {
+        // file size more or equal 100 MB, stop execution
+        break;
     }
 
-    console.log('Generating finished');
+    fs.appendFileSync(fileName, generateNum());
 }
+
+console.log('Generating finished');
