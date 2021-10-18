@@ -12,10 +12,10 @@ const generateNum = () => {
     const arr = [];
 
     for (let i = 0; i < 1000; i++) {
-        arr.push('' + Math.floor(Math.random() * (max - min) + min));
+        arr.push(Math.floor(Math.random() * (max - min) + min));
     }
 
-    return arr.join('\n');
+    return arr.join('\n') + '\n';
 };
 
 console.log('Generate file...');

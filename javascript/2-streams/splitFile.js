@@ -10,7 +10,7 @@ const readline = require('readline');
 const createAndWriteFile = (fileName, data) => {
     fs.writeFileSync(
         fileName,
-        data.sort((a, b) => a - b).join('\n')
+        data.join('\n')
     );
 
     const rl = readline.createInterface({
