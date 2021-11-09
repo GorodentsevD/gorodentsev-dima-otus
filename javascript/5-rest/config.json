@@ -1,0 +1,10 @@
+{
+  "db": {
+    "url": "mongodb+srv://root:admin@cluster0.wbyhc.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+    "login": "root",
+    "password": "admin"
+  },
+  "server": {
+    "port": 3000
+  }
+}
