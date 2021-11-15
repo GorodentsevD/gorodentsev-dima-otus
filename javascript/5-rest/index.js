@@ -2,7 +2,7 @@
 
 const config = require('./config.json');
 const database = require('./db');
-const controllers = require('./controllers');
+const services = require('./services');
 const server = require('./server');
 
 // Init app core
@@ -12,15 +12,16 @@ const server = require('./server');
     // Init models of application
     core.models = await database(config.db);
 
-    // Init controllers of app
-    const router = controllers(core);
+    // Init services of app
+    core.services = await services(core);
 
     // Init server start
-    server(config.server.port, router);
+    server(config.server.port, core);
 
     return core;
-})().then(() => console.log('App started'))
-    .catch((e) => {
-        console.log(e);
-        process.exit(-1);
-    });
+})().then(() => {
+    console.log('App started')
+}).catch((e) => {
+    console.log(e);
+    process.exit(-1);
+});
