@@ -2,14 +2,16 @@
 
 const {RestApiError} = require("../errors");
 const jwt = require('jsonwebtoken');
-const rsaPublic = require('fs').readFileSync('../../keys/jwtRS256.key.pub');
+const path = require('path');
 
 module.exports = (core) => {
     const Users = core.services.users;
 
     return async (req, res, next) => {
         try {
-            const token = req.headers.Authorization;
+            const rsaPublic = require('fs').readFileSync(__dirname + '/../../keys/jwtRS256.key.pub').toString();
+
+            const token = req.headers.authorization;
             if (!token) return res.response(new RestApiError('Unauthorized', 'unauthorized', 401));
 
             const userId = jwt.verify(token, rsaPublic).sub;

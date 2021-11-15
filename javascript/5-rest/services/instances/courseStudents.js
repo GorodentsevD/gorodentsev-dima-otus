@@ -7,14 +7,14 @@ module.exports = (core) => {
 
     return {
         // Grant access to course
-        grantAccess(creatorId, courseId, studentId) {
+        async grantAccess(creatorId, courseId, studentId) {
             return cs.updateOne({
                 id: courseId, user_id: studentId
             }, {activated: true});
         },
 
         // Block access to course
-        blockAccess(creatorId, courseId, studentId) {
+        async blockAccess(creatorId, courseId, studentId) {
             return cs.updateOne({
                 id: courseId,
                 user_id: studentId
@@ -22,7 +22,7 @@ module.exports = (core) => {
         },
 
         // Get list of students of course
-        getCourseStudents(courseId, creatorId) {
+        async getCourseStudents(courseId, creatorId) {
             return cs.find({
                 id: courseId,
                 activated: true
@@ -30,7 +30,7 @@ module.exports = (core) => {
         },
 
         // Get list of requests of course
-        getCourseRequests(courseId) {
+        async getCourseRequests(courseId) {
             return cs.find({
                 id: courseId,
                 activated: false

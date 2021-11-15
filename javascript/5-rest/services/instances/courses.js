@@ -17,7 +17,7 @@ module.exports = (core) => {
             return course;
         },
 
-        get(id) {
+        async get(id) {
             return Courses.findOne({id});
         },
 
@@ -25,11 +25,11 @@ module.exports = (core) => {
             return Courses.updateOne({id}, data);
         },
 
-        delete(id) {
+        async delete(id) {
             return Courses.deleteOne({id});
         },
 
-        getUserCourses(userId) {
+        async getUserCourses(userId) {
             return Courses.find({user_id: userId});
         }
     }

@@ -6,13 +6,13 @@ module.exports = (core) => {
 
     return {
         // Get list of lessons of course
-        getCourseLessons(courseId) {
+        async getCourseLessons(courseId) {
             return Lesson.find({course_id: courseId});
         },
 
         // Get full data of lesson (description, video and etc)
-        get(id) {
-            return Lesson.find({id});
+        async get(id) {
+            return Lesson.findOne({id});
         },
 
         async create(courseId, data) {

@@ -23,7 +23,7 @@ module.exports = (core) => {
 
         async login(username, password) {
             const user = await User.findOne({username});
-            if (!user || !user.comparePasswords(password)) {
+            if (!user || !user.comparePassword(password)) {
                 console.log(user ? 'incorrect password' : 'unknown user');
                 return null
             }
@@ -41,7 +41,7 @@ module.exports = (core) => {
             return user || null;
         },
 
-        update(id, data) {
+        async update(id, data) {
             return User.updateOne({id}, data);
         }
     }
