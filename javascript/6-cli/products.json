@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1,
+    "name": "Iphone",
+    "price": 1000,
+    "currency": "USD"
+  },
+  {
+    "id": 2,
+    "name": "Macbook Pro MAX",
+    "price": 1500,
+    "currency": "USD"
+  }
+]
